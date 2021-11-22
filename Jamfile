@@ -68,7 +68,8 @@ if $(OS) = NT { #Windows
 	LINKLIBS =
 		`'$(NEST_LIBS)/SDL2/bin/sdl2-config' --prefix='$(NEST_LIBS)/SDL2' --static-libs` -framework OpenGL #SDL2
 		-L$(NEST_LIBS)/libpng/lib -lpng                                             #libpng
-		-L$(NEST_LIBS)/zlib/lib -lz                                                 #zlib (for libpng)
+		-L$(NEST_LIBS)/zlib/lib -lz
+		-L/usr/local/lib -lassimp                                                 #zlib (for libpng)
 		#-L$(NEST_LIBS)/opusfile/lib -lopusfile                                      #opusfile
 		#-L$(NEST_LIBS)/libopus/lib -lopus                                           #libopus (for opusfile)
 		#-L$(NEST_LIBS)/libogg/lib -logg                                             #libogg (for opusfile)
@@ -135,6 +136,11 @@ COMMON_NAMES =
 	Load
 	;
 
+ASSET_NAMES =
+	data_path
+	export
+	;
+
 SHOW_MESHES_NAMES =
 	show-meshes
 	ShowMeshesProgram
@@ -156,10 +162,12 @@ Objects
 	$(COMMON_NAMES:S=.cpp)
 	$(SHOW_MESHES_NAMES:S=.cpp)
 	$(SHOW_SCENE_NAMES:S=.cpp)
+	$(ASSET_NAMES:S=.cpp)
 	;
 
 LOCATE_TARGET = dist ; #put main in 'dist' directory
 MainFromObjects game : $(GAME_NAMES:S=$(SUFOBJ)) $(COMMON_NAMES:S=$(SUFOBJ)) ;
+MainFromObjects export : $(ASSET_NAMES:S=$(SUFOBJ)) ;
 
 LOCATE_TARGET = scenes ; #put show-meshes and show-scene utilities in the 'scenes' directory:
 MainFromObjects show-meshes : $(SHOW_MESHES_NAMES:S=$(SUFOBJ)) $(COMMON_NAMES:S=$(SUFOBJ)) ;
