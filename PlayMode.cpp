@@ -201,7 +201,7 @@ AnimatedMesh::AnimatedMesh(const aiMesh* m, const aiScene* s) : mesh(m), scene(s
 
 	glBindBuffer(GL_ARRAY_BUFFER, id_vbo);
 	glBufferData(GL_ARRAY_BUFFER, bone_ids.size() * sizeof(BoneID), bone_ids.data(), GL_STATIC_DRAW);
-	glVertexAttribPointer(1, 4, GL_INT, GL_FALSE, 4 * sizeof(int), (void*)0);
+	glVertexAttribIPointer(1, 4, GL_INT, 4 * sizeof(int), (void*)0);
 
 	glBindBuffer(GL_ARRAY_BUFFER, weight_vbo);
 	glBufferData(GL_ARRAY_BUFFER, bone_weights.size() * sizeof(BoneWeight), bone_weights.data(), GL_STATIC_DRAW);
